@@ -1,17 +1,3 @@
-/**
- * ============================================================================
- * COMMON.HPP - Shared Classes and Utilities for SFD Estimation
- * ============================================================================
- * 
- * Used by: exact_sfd.cpp, compare.cpp
- * (mcmc_sfd.cpp and unified_sfd_v2.cpp are self-contained)
- * 
- * Author: TuanAnh (Master's Thesis)
- * Based on: "Approximating Simplet Frequency Distribution for Simplicial Complexes"
- *           (Beigy et al., EuroCG'24)
- * ============================================================================
- */
-
  #ifndef COMMON_HPP
  #define COMMON_HPP
  
@@ -37,9 +23,6 @@
  
  const int NUM_TYPES = 18;
  
- // ============================================================================
- // SIMPLICIAL COMPLEX DATA STRUCTURE
- // ============================================================================
  
  struct SimplicialComplex {
      size_t n = 0;
@@ -99,9 +82,6 @@
      }
  };
  
- // ============================================================================
- // RESULT STRUCTURE
- // ============================================================================
  
  struct Result {
      string method;
@@ -168,9 +148,7 @@
      }
  };
  
- // ============================================================================
- // CORRECTED SIMPLET CLASSIFIER
- // ============================================================================
+ 
  
  class Classifier {
  public:
@@ -245,9 +223,9 @@
          }
          
          if (num_edges == 4) {
-             if (degrees == vector<int>{1, 2, 2, 3}) return 7;
-             if (degrees == vector<int>{2, 2, 2, 2}) return 8;
-         }
+            if (degrees == vector<int>{1, 2, 2, 3}) return num_tris == 1 ? 9 : 7;
+            if (degrees == vector<int>{2, 2, 2, 2}) return 8;
+        }
          
          if (num_edges == 5) {
              if (num_tris == 0) return 10;
@@ -267,9 +245,7 @@
      }
  };
  
- // ============================================================================
- // DBLP FORMAT LOADER
- // ============================================================================
+ 
  
  bool loadDBLP(SimplicialComplex& K, const string& nverts_file, const string& simplices_file) {
      ifstream nv_in(nverts_file);
@@ -338,4 +314,4 @@
      return true;
  }
  
- #endif // COMMON_HPP
+ #endif 

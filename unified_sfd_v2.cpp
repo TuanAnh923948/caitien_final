@@ -331,9 +331,9 @@
          }
 
          if (num_edges == 4) {
-             if (degrees == vector<int>{1, 2, 2, 3}) return 7;
-             if (degrees == vector<int>{2, 2, 2, 2}) return 8;
-         }
+            if (degrees == vector<int>{1, 2, 2, 3}) return num_tris == 1 ? 9 : 7;
+            if (degrees == vector<int>{2, 2, 2, 2}) return 8;
+        }
 
          if (num_edges == 5) {
              if (num_tris == 0) return 10;

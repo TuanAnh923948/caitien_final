@@ -1,8 +1,3 @@
-/**
- * COMPARE - SFD Estimator Comparison Tool
- * Usage: ./compare <exact.res> <mcmc.res> <v2.res> [--detailed]
- * If exact.res == mcmc.res, assumes no exact ground truth.
- */
 
  #include "common.hpp"
 
@@ -150,7 +145,7 @@
      
      cerr << "└───────────────────────────────────────────────────────────────┘" << endl;
      
-     // Score
+     
      int v2_wins = 0, mcmc_wins = 0;
      if (m_v2.rmse < m_mcmc.rmse) v2_wins++; else if (m_mcmc.rmse < m_v2.rmse) mcmc_wins++;
      if (m_v2.mae < m_mcmc.mae) v2_wins++; else if (m_mcmc.mae < m_v2.mae) mcmc_wins++;
@@ -166,7 +161,7 @@
      else
          cerr << "TIE" << endl;
      
-     // Detailed per-type table
+    
      if (detailed) {
          cerr << endl;
          cerr << "Per-type comparison:" << endl;
@@ -195,7 +190,7 @@
          
          cerr << "└───────────────────────────────────────────────────────────────────────┘" << endl;
          
-         // CI coverage detail
+         
          cerr << endl;
          cerr << "V2 Confidence Interval Coverage:" << endl;
          int covered = 0, total = 0;

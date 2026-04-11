@@ -1,7 +1,4 @@
-/**
- * EXACT SFD ENUMERATION - Ground Truth
- * Usage: ./exact_sfd <nverts_file> <simplices_file> <output_file>
- */
+
 
  #include "common.hpp"
 
@@ -17,10 +14,10 @@
          
          auto t0 = high_resolution_clock::now();
          
-         // Type 1: All edges
+         
          r.counts[0] = K.edges.size();
          
-         // Types 2-4: All 3-simplets
+         
          for (size_t v = 0; v < K.n; v++) {
              vector<int> neighbors(K.adj[v].begin(), K.adj[v].end());
              
@@ -32,13 +29,13 @@
                      bool has_uw = K.hasEdge(u, w);
                      
                      if (!has_uw) {
-                         r.counts[1]++;  // Type 2: Path (v is center)
+                         r.counts[1]++;  
                      } else {
                          if ((int)v < u && (int)v < w) {
                              if (K.hasTriangle(v, u, w)) {
-                                 r.counts[3]++;  // Type 4: Filled triangle
+                                 r.counts[3]++;  
                              } else {
-                                 r.counts[2]++;  // Type 3: Empty triangle
+                                 r.counts[2]++;  
                              }
                          }
                      }
@@ -46,7 +43,7 @@
              }
          }
          
-         // Types 5-18: All 4-simplets
+         
          auto hashSimplet = [](vector<int> s) -> uint64_t {
              sort(s.begin(), s.end());
              return ((uint64_t)s[0] << 48) | ((uint64_t)s[1] << 32) | 
@@ -58,7 +55,7 @@
          for (size_t v = 0; v < K.n; v++) {
              vector<int> neighbors(K.adj[v].begin(), K.adj[v].end());
              
-             // Case 1: v + 3 neighbors
+             
              for (size_t i = 0; i < neighbors.size(); i++) {
                  for (size_t j = i + 1; j < neighbors.size(); j++) {
                      for (size_t k = j + 1; k < neighbors.size(); k++) {
@@ -76,7 +73,7 @@
                  }
              }
              
-             // Case 2: v + 2 neighbors + 1 vertex at distance 2
+             
              for (int u : neighbors) {
                  for (int w : K.adj[u]) {
                      if (w != (int)v && K.adj[v].count(w) == 0) {
@@ -99,7 +96,7 @@
              }
          }
          
-         // Compute frequencies
+         
          r.total = 0;
          for (int i = 0; i < NUM_TYPES; i++) {
              r.total += r.counts[i];
